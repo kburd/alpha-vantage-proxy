@@ -3,9 +3,9 @@ from setuptools import setup
 
 setup(
     name='alpha_vantage_proxy',
-    version='0.0.1',
+    version='0.0.3',
     description='A plugin to interface with alphavantage api',
-    url='',
+    url='https://github.com/kburd/alpha-vantage-proxy',
     author='Kaleb Burd',
     author_email='kalebmburd@gmail.com',
     license='MIT',

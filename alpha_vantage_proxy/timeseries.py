@@ -1,14 +1,8 @@
 
 import requests
-from alpha_vantage_proxy.models import TimeSeriesFunction, TimeSeriesOutputSize, TimeSeriesDataType
+from alpha_vantage_proxy.models import *
 
 class TimeSeries:
-
-    function = None
-    symbol = None
-    apikey = None
-    outputsize = None 
-    datatype = None
 
     def setFunction(self, function):
         self.function = function
@@ -65,6 +59,35 @@ class TimeSeries:
     def setKey(self, apikey):
         self.apikey = apikey
         return self
+
+    def setInterval(self, interval):
+        self.interval = interval
+        return self
+
+    def oneMin(self):
+        return self.setInterval(IntradayInterval.ONE_MINUTE)
+
+    def fiveMin(self):
+        return self.setInterval(IntradayInterval.FIVE_MINUTE)
+
+    def fifteenMin(self):
+        return self.setInterval(IntradayInterval.FIFTEEN_MINUTE)
+
+    def thirtyMin(self):
+        return self.setInterval(IntradayInterval.THIRTY_MINUTE)
+
+    def sixityMin(self):
+        return self.setInterval(IntradayInterval.SIXITY_MINUTE)
+
+    def setAdjusted(self, flag):
+        self.adjusted = flag
+        return self
+
+    def adjusted(self):
+        return self.setAdjusted(True)
+
+    def unadjusted(self):
+        return self.setAdjusted(False)
 
     def get(self):
 

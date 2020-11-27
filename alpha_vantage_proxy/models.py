@@ -21,3 +21,11 @@ class TimeSeriesDataType(enum.Enum):
 
     JSON = "json"
     CSV = "csv"
+
+class IntradayInterval(enum.Enum):
+
+    ONE_MINUTE = "1min"
+    FIVE_MINUTE = "5min"
+    FIFTEEN_MINUTE = "15min"
+    THIRTY_MINUTE = "30min"
+    SIXTY_MINUTE = "60min"
