@@ -1,5 +1,14 @@
 
+import requests
+from alpha_vantage_proxy.models import TimeSeriesFunction, TimeSeriesOutputSize, TimeSeriesDataType
+
 class TimeSeries:
+
+    function = None
+    symbol = None
+    apikey = None
+    outputsize = None 
+    datatype = None
 
     def setFunction(self, function):
         self.function = function
@@ -33,8 +42,8 @@ class TimeSeries:
         self.symbol = symbol
         return self
 
-    def setOutputSize(self, size):
-        self.size = size
+    def setOutputSize(self, outputsize):
+        self.outputsize = outputsize
         return self
 
     def compact(self):
@@ -43,8 +52,8 @@ class TimeSeries:
     def full(self):
         return self.setOutputSize(TimeSeriesOutputSize.FULL)
 
-    def setDataType(self, dataType):
-        self.dataType = dataType
+    def setDataType(self, datatype):
+        self.datatype = datatype
         return self
 
     def json(self):
@@ -53,9 +62,22 @@ class TimeSeries:
     def csv(self):
         return self.setDataType(TimeSeriesDataType.CSV)
 
-    def setApi(self, api):
-        self.api = api
-        return api
+    def setKey(self, apikey):
+        self.apikey = apikey
+        return self
+
+    def get(self):
+
+        url = "https://www.alphavantage.co/query?"
+
+        for key in self.__dict__:
+            value = self.__dict__[key] if type(self.__dict__[key]) == str else self.__dict__[key].value
+            url += key + "=" + value + "&"
+
+        url = url[:-1]
+
+        return requests.get(url)      
+
 
     def __str__(self):
         return str(self.__dict__)
