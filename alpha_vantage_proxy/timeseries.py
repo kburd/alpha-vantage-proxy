@@ -91,6 +91,14 @@ class TimeSeries:
 
     def get(self):
 
+        url = self.build()
+        response = requests.get(url)   
+        data = self.clean(response)
+
+        return data
+
+    def build(self):
+
         url = "https://www.alphavantage.co/query?"
 
         for key in self.__dict__:
@@ -99,8 +107,34 @@ class TimeSeries:
 
         url = url[:-1]
 
-        return requests.get(url)      
+        return url
 
+
+    def clean(self, response):
+
+        data = response.content.decode("utf-8").split("\n")
+        del data[0]
+        del data[-1]
+        data.reverse()
+
+        records = []
+        for row in data:
+
+            row = row.split(",")
+            recordObj = Record()
+
+            recordObj.date = row[0].split(" ")[0]
+            recordObj.time = row[0].split(" ")[1]
+            recordObj.open = float(row[1])
+            recordObj.high = float(row[2])
+            recordObj.low = float(row[3])
+            recordObj.close = float(row[4])
+            recordObj.volume = int(row[5])
+
+            records.append(recordObj)
+
+        return records
+        
 
     def __str__(self):
         return str(self.__dict__)

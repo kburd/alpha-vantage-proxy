@@ -1,6 +1,21 @@
 
 import enum
 
+class Record:
+
+    def __init__(self):
+
+        self.open = None
+        self.close = None
+        self.high = None
+        self.low = None
+        self.volume = None
+        self.date = None
+        self.time = None
+
+    def __str__(self):
+        return str(self.__dict__)
+
 class TimeSeriesFunction(enum.Enum):
    
     INTRADAY = "TIME_SERIES_INTRADAY"
